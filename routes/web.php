@@ -24,4 +24,15 @@ Route::get('/monster/create',[RuleController::class, 'create'])->name('rule.crea
 Route::post('/monster/store',[RuleController::class, 'store'])->name('rule.store');
 
 //totte lista mostri
-Route::get('/monster/inedx',[RuleController::class, 'index'])->name('rule.index');
+Route::get('/monsters',[RuleController::class, 'index'])->name('rule.index');
+
+// rotta singolo mostro
+Route::get('/monster/{data}',[RuleController::class, 'show'])->name('rule.show');
+
+
+// rotta per modifica
+Route::get('/monster/edit/{data}',[RuleController::class, 'edit'])->name('rule.edit');
+Route::put('/monster/update/{data}',[RuleController::class, 'update'])->name('rule.update');
+
+// rotta per eliminazione
+Route::delete('/monster/delete/{data}',[RuleController::class, 'destroy'])->name('rule.delete');

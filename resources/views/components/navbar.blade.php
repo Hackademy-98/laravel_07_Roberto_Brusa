@@ -15,6 +15,25 @@
           <li class="nav-item">
             <a class="nav-link" href="{{route('rule.index')}}">lista Mostri</a>
           </li>
+
+          @guest
+          <li class="nav-item">
+            <a class="nav-link" href="{{route('register')}}">sign-in</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{route('login')}}">log-in</a>
+          </li>
+          @endguest
+
+          @auth
+          <li class="nav-item">
+            <form action="{{route('logout')}}" method="POST">
+              @csrf
+              <button type="submit" class="nav-link">log-out</button>
+            </form>
+          </li>
+          @endauth
+          
           <li class="nav-item">
             <a class="nav-link disabled" aria-disabled="true">Disabled</a>
           </li>
