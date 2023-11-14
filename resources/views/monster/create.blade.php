@@ -23,6 +23,11 @@
         <div class="mb-3">
             <label for="img" class="form-label">descrizione</label>
             <input name="img" type="file" class="form-control @error('img') is-invalid @enderror" id="img">
+            @error('img')
+            <p class="text-danger">
+                {{$message}}
+            </p>
+            @enderror
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
