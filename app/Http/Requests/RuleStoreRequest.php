@@ -25,6 +25,7 @@ class RuleStoreRequest extends FormRequest
             'name' => 'required|min:2',
             'description' => 'required',
             'img' => 'image',
+            'category_id' => 'required',
 
         ];
     }

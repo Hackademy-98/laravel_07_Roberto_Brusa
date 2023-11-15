@@ -2,6 +2,8 @@
     <x-navbar/>
     <form class="container" method="POST" action="{{route('rule.store')}}" enctype="multipart/form-data">
         @csrf
+
+        {{-- nome --}}
         <div class="mb-3">
             <label for="name" class="form-label">Nome mostro</label>
             <input name="name" type="text" class="form-control @error('name') is-invalid @enderror" id="name" value="{{old('name')}}">
@@ -11,6 +13,30 @@
             </p>
             @enderror
         </div>
+
+        {{-- classe armatura --}}
+        <div class="mb-3">
+            <label for="CA" class="form-label">Classe armatura</label>
+            <input name="CA" type="text" class="form-control @error('CA') is-invalid @enderror" id="CA" value="{{old('CA')}}">
+            @error('CA')
+            <p class="text-danger">
+                {{$message}}
+            </p>
+            @enderror
+        </div>
+
+        {{-- punti ferita --}}
+        <div class="mb-3">
+            <label for="PF" class="form-label">Punti Feita</label>
+            <input name="PF" type="text" class="form-control @error('PF') is-invalid @enderror" id="PF" value="{{old('PF')}}">
+            @error('PF')
+            <p class="text-danger">
+                {{$message}}
+            </p>
+            @enderror
+        </div>
+
+        {{-- descrizione --}}
         <div class="mb-3">
             <label for="description" class="form-label">descrizione</label>
             <textarea cols="30" rows="10" name="description" type="text" class="form-control @error('description') is-invalid @enderror" id="description" >{{old('description')}}</textarea>
@@ -20,6 +46,7 @@
             </p>
             @enderror
         </div>
+
         <div class="mb-3">
             <label for="img" class="form-label">descrizione</label>
             <input name="img" type="file" class="form-control @error('img') is-invalid @enderror" id="img">
@@ -29,6 +56,21 @@
             </p>
             @enderror
         </div>
+        
+        {{-- categoria --}}
+        <div class="mb-3">
+            <label for="category_id" class="form-label">categoria</label>
+            <select id="category_id" name="category_id" class="form-select">
+                <option selected disabled>scegli una classe</option>
+                @foreach ($data as $el)
+                <option value="{{$el->id}}">{{$el->name}}</option>
+                @endforeach
+            </select>
+            @error('category_id')
+            <p class="text-danger">{{$message}}</p>
+            @enderror
+        </div>
+
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 

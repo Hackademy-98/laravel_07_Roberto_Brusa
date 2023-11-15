@@ -1,3 +1,4 @@
+// delete pop-up
 let cards = document.querySelectorAll('.button-monster-delete')
 
 cards.forEach(el => {
@@ -11,3 +12,6 @@ cards.forEach(el => {
         el_delete.classList.toggle('d-none')
     })
 });
+
+//edit page
+let prova = document.querrySelectorAll()

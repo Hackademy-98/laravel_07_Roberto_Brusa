@@ -36,3 +36,6 @@ Route::put('/monster/update/{data}',[RuleController::class, 'update'])->name('ru
 
 // rotta per eliminazione
 Route::delete('/monster/delete/{data}',[RuleController::class, 'destroy'])->name('rule.delete');
+
+// rotta indice filtrato
+Route::get('/monsters/{category:name}',[RuleController::class,'filter'])->name('rule.filter');

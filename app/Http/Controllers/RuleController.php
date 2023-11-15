@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Rule;
 use Illuminate\Http\Request;
 use App\Http\Requests\RuleStoreRequest;
@@ -9,6 +10,11 @@ use Illuminate\Support\Facades\Storage;
 
 class RuleController extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth')->except('index','show');
+    }
+
+
     /**
      * Display a listing of the resource.
      */
@@ -22,7 +28,7 @@ class RuleController extends Controller
      */
     public function create()
     {
-        return view('monster.create');
+        return view('monster.create',['data'=> Category::all()]);
     }
 
     /**
@@ -36,7 +42,10 @@ class RuleController extends Controller
         Rule::create([
             'name' => $request->name,
             'description' => $request->description,
+            'CA' => $request->CA,
+            'PF' => $request->PF,
             'img' => $file ? $file->store('public/images') : 'public/images/default.png',
+            'category_id' => $request->category_id
         ]);
         return redirect('/');
     }
@@ -54,7 +63,7 @@ class RuleController extends Controller
      */
     public function edit(Rule $data)
     {
-        return view('monster.edit',compact('data'));
+        return view('monster.edit',compact('data'),['categories'=> Category::all()]);
     }
 
     /**
@@ -87,5 +96,15 @@ class RuleController extends Controller
         $data->delete();
         Storage::delete($data->img);
         return redirect('/monsters');
+    }
+
+    public function filter(Category $category){
+
+        // metodo donato
+        $monsters = $category->rules;
+        return view('monster.index',['monster' => $monsters]);
+
+        //! metodo where get
+        // return view('monster.index',['monster' => Rule::where('category_id', $category->id)->get()]);
     }
 }
