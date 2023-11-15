@@ -61,7 +61,7 @@
         <div class="mb-3">
             <label for="category_id" class="form-label">categoria</label>
             <select id="category_id" name="category_id" class="form-select">
-                <option selected disabled>scegli una classe</option>
+                <option selected disabled>scegli una categoria</option>
                 @foreach ($data as $el)
                 <option value="{{$el->id}}">{{$el->name}}</option>
                 @endforeach
