@@ -43,6 +43,21 @@
             </p>
             @enderror
         </div>
+
+        {{-- azioni --}}
+        <div class="mb-3">
+            <h5>AZIONI</h5>
+            <div class="row p-4">
+                @foreach($actions as $action)
+                <div class="form-check col-2 ">
+                    <input class="form-check-input" @checked($data->actions->contains($action)) name="actions[]" type="checkbox" value="{{$action->id}}" id="id_{{$action}}">
+                    <label class="form-check-label" for="id_{{$action}}">
+                        {{$action->name}}
+                    </label>
+                </div>
+                @endforeach
+            </div>
+        </div>
         
         <button type="submit" class="btn btn-primary">Submit</button>
 

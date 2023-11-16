@@ -7,6 +7,14 @@
             <a href="{{route('rule.show',compact('data'))}}">
                 <img src="{{Storage::url($data->img)}}" class="card-img-top custom_img" alt="...">
             </a>
+            
+            <div>
+                @foreach ($data->actions as $action)
+                <a href="">
+                    {{$action->name}}
+                </a>
+                @endforeach
+            </div>
 
             <a href="{{route('rule.filter',$data->category)}}">
                 <p>

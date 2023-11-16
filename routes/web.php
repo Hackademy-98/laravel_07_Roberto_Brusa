@@ -39,3 +39,7 @@ Route::delete('/monster/delete/{data}',[RuleController::class, 'destroy'])->name
 
 // rotta indice filtrato
 Route::get('/monsters/{category:name}',[RuleController::class,'filter'])->name('rule.filter');
+
+//form creazione azioni
+Route::get('/monster/createAction',[RuleController::class, 'createAction'])->name('rule.createAction');
+Route::post('/monster/storeAction',[RuleController::class, 'storeAction'])->name('rule.storeAction');

@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
 use App\Models\Rule;
+use App\Models\Action;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Requests\RuleStoreRequest;
 use Illuminate\Support\Facades\Storage;
@@ -28,7 +29,7 @@ class RuleController extends Controller
      */
     public function create()
     {
-        return view('monster.create',['data'=> Category::all()]);
+        return view('monster.create',['data'=> Category::all()],['actions'=>Action::all()]);
     }
 
     /**
@@ -39,7 +40,7 @@ class RuleController extends Controller
 
         $file = $request->file('img');
 
-        Rule::create([
+        $monster = Rule::create([
             'name' => $request->name,
             'description' => $request->description,
             'CA' => $request->CA,
@@ -47,6 +48,8 @@ class RuleController extends Controller
             'img' => $file ? $file->store('public/images') : 'public/images/default.png',
             'category_id' => $request->category_id
         ]);
+        $monster->actions()->attach($request->actions);
+
         return redirect('/');
     }
 
@@ -63,7 +66,9 @@ class RuleController extends Controller
      */
     public function edit(Rule $data)
     {
-        return view('monster.edit',compact('data'),['categories'=> Category::all()]);
+        $actions = Action::all();
+        $categories = Category::all();
+        return view('monster.edit',compact('data','categories','actions'));
     }
 
     /**
@@ -78,6 +83,10 @@ class RuleController extends Controller
             'name'=> $request->name,
             'description'=> $request->description,
         ]);
+        $data->actions()->detach();
+        $data->actions()->attach($request->actions);
+
+
 
         if($file){
             Storage::delete($data->img);
@@ -93,9 +102,32 @@ class RuleController extends Controller
      */
     public function destroy(Rule $data)
     {
+        $data->actions()->detach();
         $data->delete();
         Storage::delete($data->img);
         return redirect('/monsters');
+    }
+
+    public function createAction(Request $request){
+
+    }
+
+    public function storeAction(RuleStoreRequest $request)
+    {
+
+        $file = $request->file('img');
+
+        $monster = Rule::create([
+            'name' => $request->name,
+            'description' => $request->description,
+            'CA' => $request->CA,
+            'PF' => $request->PF,
+            'img' => $file ? $file->store('public/images') : 'public/images/default.png',
+            'category_id' => $request->category_id
+        ]);
+        $monster->actions()->attach($request->actions);
+
+        return redirect('/');
     }
 
     public function filter(Category $category){

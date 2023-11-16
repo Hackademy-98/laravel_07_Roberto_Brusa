@@ -2,7 +2,7 @@
     <x-navbar/>
     <form class="container" method="POST" action="{{route('rule.store')}}" enctype="multipart/form-data">
         @csrf
-
+        
         {{-- nome --}}
         <div class="mb-3">
             <label for="name" class="form-label">Nome mostro</label>
@@ -13,7 +13,7 @@
             </p>
             @enderror
         </div>
-
+        
         {{-- classe armatura --}}
         <div class="mb-3">
             <label for="CA" class="form-label">Classe armatura</label>
@@ -24,7 +24,7 @@
             </p>
             @enderror
         </div>
-
+        
         {{-- punti ferita --}}
         <div class="mb-3">
             <label for="PF" class="form-label">Punti Feita</label>
@@ -35,7 +35,7 @@
             </p>
             @enderror
         </div>
-
+        
         {{-- descrizione --}}
         <div class="mb-3">
             <label for="description" class="form-label">descrizione</label>
@@ -46,9 +46,10 @@
             </p>
             @enderror
         </div>
-
+        
+        {{-- immagine --}}
         <div class="mb-3">
-            <label for="img" class="form-label">descrizione</label>
+            <label for="img" class="form-label">immagine</label>
             <input name="img" type="file" class="form-control @error('img') is-invalid @enderror" id="img">
             @error('img')
             <p class="text-danger">
@@ -70,8 +71,24 @@
             <p class="text-danger">{{$message}}</p>
             @enderror
         </div>
-
+        
+        {{-- azioni --}}
+        <div class="mb-3">
+            <h5>AZIONI</h5>
+            <div class="row p-4">
+                @foreach($actions as $action)
+                <div class="form-check col-2 ">
+                    <input class="form-check-input" name="actions[]" type="checkbox" value="{{$action->id}}" id="id_{{$action}}">
+                    <label class="form-check-label" for="id_{{$action}}">
+                        {{$action->name}}
+                    </label>
+                </div>
+                @endforeach
+            </div>
+        </div>
+        
+        
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
-
+    
 </x-layout>
